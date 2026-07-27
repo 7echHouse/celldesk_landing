@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CellDesk — Todo tu negocio de celulares, en un solo lugar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --bg-soft:#F1F8FF;
+    --blue:#2E8FE0;
+    --blue-deep:#123A5E;
+    --ink:#16232E;
+    --ink-soft:#5B7186;
+    --line:#D7E6F5;
+    --amber:#E0972E;
+    --green:#2EAA6B;
+    --slate:#6FA8DC;
+    --radius:10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'IBM Plex Sans', sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  h1,h2,h3{font-family:'IBM Plex Serif', serif; letter-spacing:-0.005em; font-weight:600;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+  img,svg{display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+
+  /* faint ledger-grid backdrop */
+  .grid-bg{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:40px 40px;
+    opacity:0.35;
+    mask-image:radial-gradient(ellipse 70% 60% at 60% 20%, black 40%, transparent 90%);
+  }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:1120px; margin:0 auto;
+  }
+  .logo{display:flex; align-items:center; font-size:20px; font-weight:600; font-family:'IBM Plex Serif', serif;}
+  .logo-badge{
+    background:var(--blue-deep); color:var(--white);
+    padding:4px 9px; border-radius:6px; margin-right:2px;
+  }
+  .logo-text{color:var(--blue);}
+  .nav-links{display:flex; gap:32px; font-size:14px; font-weight:500; color:var(--ink-soft);}
+  .nav-links a{text-decoration:none; transition:color .15s;}
+  .nav-links a:hover{color:var(--blue-deep);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 20px; border-radius:8px; font-weight:600; font-size:14px;
+    cursor:pointer; border:none; text-decoration:none; transition:all .15s;
+    font-family:'Inter', sans-serif;
+  }
+  .btn-primary{background:var(--blue-deep); color:var(--white);}
+  .btn-primary:hover{background:#0d2c48; transform:translateY(-1px);}
+  .btn:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+
+  /* HERO */
+  .hero{position:relative; overflow:hidden; padding:88px 0 100px;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+    position:relative; z-index:1;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:600; color:var(--blue-deep);
+    background:var(--bg-soft); border:1px solid var(--line);
+    padding:6px 12px; border-radius:100px; margin-bottom:20px;
+  }
+  .eyebrow::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--green);}
+  h1{font-size:44px; line-height:1.1; font-weight:700; color:var(--ink); max-width:560px;}
+  h1 span{color:var(--blue);}
+  .hero p.sub{
+    margin-top:20px; font-size:17px; color:var(--ink-soft); max-width:480px; line-height:1.6;
+  }
+  .hero-form{
+    margin-top:32px; display:flex; gap:10px; max-width:440px; flex-wrap:wrap;
+  }
+  .hero-form input{
+    flex:1; min-width:220px; padding:13px 16px; border-radius:8px;
+    border:1.5px solid var(--line); font-size:14px; font-family:'Inter',sans-serif;
+    background:var(--white);
+  }
+  .hero-form input:focus{outline:none; border-color:var(--blue);}
+  .form-note{margin-top:10px; font-size:12.5px; color:var(--ink-soft);}
+  .scroll-cue{
+    display:inline-flex; align-items:center; gap:6px; margin-top:36px;
+    font-size:13px; font-weight:600; color:var(--blue-deep); text-decoration:none;
+    opacity:0; animation:fadeUp .7s ease-out .65s forwards;
+  }
+  .scroll-cue svg{animation:bounceDown 1.6s ease-in-out infinite;}
+  .scroll-cue:hover{color:var(--blue);}
+  @keyframes bounceDown{
+    0%, 100%{transform:translateY(0);}
+    50%{transform:translateY(5px);}
+  }
+
+  /* TAG STACK — signature element */
+  .tag-stack{position:relative; height:420px;}
+  .tag{
+    position:absolute; width:280px; background:var(--white);
+    border:1.5px solid var(--line); border-radius:14px;
+    box-shadow:0 20px 40px -12px rgba(18,58,94,0.18);
+    padding:22px 22px 20px;
+  }
+  .tag::before{
+    content:''; position:absolute; top:-9px; left:28px;
+    width:18px; height:18px; border-radius:50%;
+    background:var(--bg-soft); border:1.5px solid var(--line);
+  }
+  .tag-back{
+    top:38px; left:56px; transform:rotate(4deg);
+    opacity:0.55; z-index:1;
+  }
+  .tag-front{
+    top:0; left:0; transform:rotate(-3deg); z-index:2;
+  }
+  .tag-row{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;}
+  .tag-imei{font-size:11px; color:var(--ink-soft); letter-spacing:0.02em;}
+  .tag-status{
+    font-size:11px; font-weight:600; padding:3px 10px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:5px; transition:all .4s ease;
+  }
+  .tag-status::before{content:''; width:5px; height:5px; border-radius:50%; background:currentColor;}
+  .tag-model{font-size:19px; font-weight:600; font-family:'IBM Plex Serif',serif; margin-bottom:2px;}
+  .tag-sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:18px;}
+  .tag-divider{border-top:1px dashed var(--line); margin:14px 0;}
+  .tag-prices{display:flex; justify-content:space-between; align-items:flex-end;}
+  .tag-price-block .label{font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em;}
+  .tag-price-block .value{font-size:15px; font-weight:600; margin-top:2px;}
+  .tag-margin{
+    font-size:11px; font-weight:600; color:var(--green);
+    background:#E9F8EF; padding:2px 8px; border-radius:6px;
+  }
+
+  /* FEATURES */
+  .section{padding:88px 0;}
+  .section-soft{background:var(--bg-soft);}
+  .section-head{max-width:560px; margin-bottom:52px;}
+  .section-head h2{font-size:32px; font-weight:700; color:var(--ink); margin-top:10px;}
+  .section-head p{color:var(--ink-soft); font-size:16px; margin-top:14px;}
+
+  .feature-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+  }
+  .feature{background:var(--white); padding:30px 26px;}
+  .feature.soon{background:var(--bg-soft);}
+  .feature-icon{
+    width:38px; height:38px; border-radius:9px; background:var(--bg-soft);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .feature.soon .feature-icon{background:var(--white);}
+  .feature-icon svg{width:19px; height:19px; stroke:var(--blue-deep); stroke-width:1.7; fill:none;}
+  .feature h3{font-size:16px; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px;}
+  .feature p{font-size:14px; color:var(--ink-soft); line-height:1.55;}
+  .feature-example{
+    margin-top:12px; padding-top:12px; border-top:1px dashed var(--line);
+    font-size:12.5px; color:var(--blue-deep) !important; font-style:italic;
+  }
+  .pill-soon{
+    font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+    color:var(--blue); background:var(--white); border:1px solid var(--line);
+    padding:2px 7px; border-radius:100px;
+  }
+
+  /* STEPS */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:8px;}
+  .step{position:relative; padding-left:0;}
+  .step-num{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--blue);
+    border:1.5px solid var(--line); width:30px; height:30px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px;
+  }
+  .step h3{font-size:16px; font-weight:600; margin-bottom:8px;}
+  .step p{font-size:14px; color:var(--ink-soft); line-height:1.55;}
+
+  /* WAITLIST */
+  .waitlist{
+    background:var(--blue-deep); border-radius:20px; padding:56px 48px;
+    position:relative; overflow:hidden; color:var(--white);
+  }
+  .waitlist::after{
+    content:''; position:absolute; right:-60px; top:-60px; width:280px; height:280px;
+    border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+  }
+  .waitlist-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; position:relative; z-index:1;}
+  .waitlist h2{font-size:28px; font-weight:700; color:var(--white); max-width:400px;}
+  .waitlist p{color:#BBD6EE; margin-top:14px; font-size:15px; max-width:400px; line-height:1.6;}
+  .waitlist-form{display:flex; flex-direction:column; gap:12px;}
+  .waitlist-form input, .waitlist-form select{
+    padding:13px 16px; border-radius:8px; border:1.5px solid rgba(255,255,255,0.18);
+    background:rgba(255,255,255,0.06); color:var(--white); font-size:14px; font-family:'Inter',sans-serif;
+  }
+  .waitlist-form input::placeholder{color:#8FB2CE;}
+  .waitlist-form input:focus, .waitlist-form select:focus{outline:none; border-color:var(--blue);}
+  .waitlist-form select option{color:var(--ink);}
+  .btn-light{background:var(--white); color:var(--blue-deep); width:100%; justify-content:center; padding:13px;}
+  .btn-light:hover{background:#EAF4FD;}
+  .waitlist-note{font-size:12.5px; color:#8FB2CE; margin-top:4px;}
+  .waitlist-error{
+    display:none; font-size:12.5px; color:#FFD9D9; background:rgba(255,80,80,0.15);
+    border:1px solid rgba(255,120,120,0.4); border-radius:6px; padding:8px 10px; margin-top:8px;
+    font-family:'IBM Plex Mono', monospace; word-break:break-word;
+  }
+  .waitlist-debug{
+    font-size:11px; color:#6FA8DC; margin-top:10px; font-family:'IBM Plex Mono', monospace;
+  }
+  .success-box{
+    display:none; text-align:center; padding:24px; border:1.5px dashed rgba(255,255,255,0.3);
+    border-radius:10px; font-size:14px;
+  }
+  .success-box strong{display:block; font-family:'Space Grotesk',sans-serif; font-size:17px; margin-bottom:6px;}
+
+  footer{padding:36px 0; border-top:1px solid var(--line);}
+  .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  .footer-row .logo{font-size:16px;}
+  footer p{font-size:13px; color:var(--ink-soft);}
+
+  /* ANIMACIONES */
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes floatTag{
+    0%, 100%{transform:translateY(0) rotate(var(--rot));}
+    50%{transform:translateY(-10px) rotate(var(--rot));}
+  }
+  @keyframes popIn{
+    0%{opacity:0; transform:translateY(24px) rotate(var(--rot)) scale(0.94);}
+    100%{opacity:1; transform:translateY(0) rotate(var(--rot)) scale(1);}
+  }
+  @keyframes statusPulse{
+    0%{transform:scale(1);}
+    35%{transform:scale(1.12);}
+    100%{transform:scale(1);}
+  }
+  @keyframes dotPulse{
+    0%, 100%{opacity:1; transform:scale(1);}
+    50%{opacity:0.4; transform:scale(0.7);}
+  }
+  @keyframes drift{
+    0%{background-position:0 0, 0 0;}
+    100%{background-position:80px 80px, 80px 80px;}
+  }
+
+  .hero-eyebrow-anim{opacity:0; animation:fadeUp .6s ease-out .05s forwards;}
+  .hero h1{opacity:0; animation:fadeUp .7s ease-out .15s forwards;}
+  .hero p.sub{opacity:0; animation:fadeUp .7s ease-out .28s forwards;}
+  .hero-form{opacity:0; animation:fadeUp .7s ease-out .4s forwards;}
+  .form-note{opacity:0; animation:fadeUp .7s ease-out .5s forwards;}
+
+  .grid-bg{animation:drift 6s linear infinite;}
+
+  .tag-back{--rot:4deg; animation:popIn .7s cubic-bezier(.2,.8,.2,1) .15s backwards, floatTag 7s ease-in-out 1s infinite;}
+  .tag-front{--rot:-3deg; animation:popIn .7s cubic-bezier(.2,.8,.2,1) .35s backwards, floatTag 6s ease-in-out 1.2s infinite;}
+  .tag-status.pulse{animation:statusPulse .5s ease-out;}
+  .tag-status::before{animation:dotPulse 1.8s ease-in-out infinite;}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease-out, transform .6s ease-out;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  .btn-primary, .btn-light{transition:all .2s cubic-bezier(.2,.8,.2,1);}
+  .feature{transition:transform .25s ease, box-shadow .25s ease;}
+  .feature:hover{transform:translateY(-3px); box-shadow:0 12px 24px -14px rgba(18,58,94,0.25); position:relative; z-index:1;}
+  .nav-links a{position:relative;}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-4px; width:0; height:1.5px;
+    background:var(--blue); transition:width .2s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+    .hero-eyebrow-anim, .hero h1, .hero p.sub, .hero-form, .form-note{opacity:1;}
+  }
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .tag-stack{height:300px; margin-top:20px;}
+    .tag{width:240px;}
+    h1{font-size:34px;}
+    .feature-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .waitlist-grid{grid-template-columns:1fr;}
+    .waitlist{padding:36px 24px;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><span class="logo-badge">Cell</span><span class="logo-text">Desk</span></div>
+    <div class="nav-links">
+      <a href="#funciones">Funciones</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#acceso">Acceso anticipado</a>
+    </div>
+    <a href="#acceso" class="btn btn-primary">Sumarme</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow hero-eyebrow-anim">Para negocios de compra, venta y reparación de celulares</div>
+      <h1>¿Sabés cuánta plata tenés <span>parada en stock</span> ahora mismo?</h1>
+      <p class="sub">La mayoría de los locales no lo sabe con exactitud — lo calculan a ojo entre el Excel, el cuaderno y lo que se acuerdan. CellDesk te lo muestra en un vistazo, y controla que ningún equipo se venda dos veces por WhatsApp sin que te enteres.</p>
+      <form class="hero-form" id="hero-form">
+        <input type="email" id="hero-email" placeholder="tu@email.com" required>
+        <button type="button" class="btn btn-primary" id="hero-submit-btn">Quiero probarlo</button>
+      </form>
+      <p class="form-note">Sin spam. Te avisamos apenas abramos el acceso anticipado.</p>
+      <a href="#funciones" class="scroll-cue">
+        <span>Mirá cómo funciona</span>
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 4v14M6 12l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="tag-stack">
+      <div class="tag tag-back">
+        <div class="tag-row">
+          <span class="tag-imei mono">IMEI 358···044</span>
+          <span class="tag-status" style="color:var(--slate); background:#EAF2FB;">Vendido</span>
+        </div>
+        <div class="tag-model">Samsung S23</div>
+        <div class="tag-sub">128GB · Usado</div>
+      </div>
+
+      <div class="tag tag-front">
+        <div class="tag-row">
+          <span class="tag-imei mono">IMEI 351···291</span>
+          <span class="tag-status" id="live-status" style="color:var(--amber); background:#FBF0E1;">Reservado</span>
+        </div>
+        <div class="tag-model">iPhone 13 Pro</div>
+        <div class="tag-sub">256GB · Excelente estado</div>
+        <div class="tag-divider"></div>
+        <div class="tag-prices">
+          <div class="tag-price-block">
+            <div class="label">Costo</div>
+            <div class="value mono">$650</div>
+          </div>
+          <div class="tag-price-block">
+            <div class="label">Precio</div>
+            <div class="value mono">$890</div>
+          </div>
+          <div class="tag-margin">+27%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="funciones">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Qué vas a poder hacer</div>
+      <h2>Todo lo que hoy hacés a mano, en un solo lugar.</h2>
+      <p>No es un CRM genérico con el nombre cambiado. Cada función resuelve algo puntual del día a día de comprar, vender y reparar celulares.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+        <h3>Stock con margen automático</h3>
+        <p>Cargá el costo y el % de ganancia — CellDesk calcula el precio. Marcá cada equipo como disponible, reservado o vendido.</p>
+        <p class="feature-example">Ej: cargás un iPhone a $650 con 30% de margen → CellDesk te muestra $845 de precio de venta, solo.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+        <h3>Parte de pago (trade-in)</h3>
+        <p>Cuando un cliente paga con su equipo viejo, queda trazado: de qué venta vino y a qué precio entró a tu stock.</p>
+        <p class="feature-example">Ej: vendés un iPhone 15 y recibís un iPhone 11 usado como parte de pago — entra solo a tu stock, con su propio costo.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Reparaciones</h3>
+        <p>Tickets con diagnóstico, presupuesto, repuestos usados y garantía. Tu técnico siempre sabe qué está pendiente.</p>
+        <p class="feature-example">Ej: el cliente aprueba el presupuesto desde su celular, y el ticket pasa solo a "en reparación".</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Base de clientes</h3>
+        <p>Historial de compras, reservas y reparaciones de cada cliente, siempre a mano.</p>
+        <p class="feature-example">Ej: un cliente vuelve después de un año — ves al toque qué le vendiste y si tuvo alguna reparación.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <h3>Calendario de turnos</h3>
+        <p>Agendá entregas, retiros y citas asociadas a un cliente o a una reparación.</p>
+        <p class="feature-example">Ej: agendás el retiro de una reparación y queda vinculado directo al ticket y al cliente.</p>
+      </div>
+      <div class="feature soon reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 21l2-5.5a8.38 8.38 0 0 1-1-4A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg></div>
+        <h3>Bandeja de WhatsApp <span class="pill-soon">Próximamente</span></h3>
+        <p>Todas tus conversaciones asociadas al cliente correcto, sin cambiar de app.</p>
+        <p class="feature-example">Ej: te escriben por un equipo reservado y ya ves su historial completo, sin buscar el chat viejo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft" id="como-funciona">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Cómo funciona</div>
+      <h2>Tres pasos, un solo panel.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num mono">01</div>
+        <h3>Cargás tu stock</h3>
+        <p>IMEI, costo y margen. El precio de venta se calcula solo, y podés reservar equipos al toque.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num mono">02</div>
+        <h3>Vendés y reparás</h3>
+        <p>Registrás la venta (con o sin trade-in) o abrís un ticket de reparación con presupuesto y repuestos.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num mono">03</div>
+        <h3>Controlás todo junto</h3>
+        <p>Dashboard con capital en stock, ventas del mes, reparaciones en curso y próximos turnos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="acceso">
+  <div class="wrap">
+    <div class="waitlist reveal">
+      <div class="waitlist-grid">
+        <div>
+          <h2>Estamos armando la primera versión.</h2>
+          <p>Sumate a la lista de negocios que van a probar CellDesk antes que nadie. Sin costo, sin compromiso.</p>
+        </div>
+        <div>
+          <form class="waitlist-form" id="waitlist-form">
+            <input type="text" id="wl-name" placeholder="Tu nombre" required>
+            <input type="text" id="wl-business" placeholder="Nombre de tu negocio" required>
+            <input type="text" id="wl-contact" placeholder="WhatsApp o email" required>
+            <select id="wl-type" required>
+              <option value="" disabled selected>¿A qué te dedicás?</option>
+              <option value="compra_venta">Compra y venta de celulares</option>
+              <option value="reparacion">Reparación de celulares</option>
+              <option value="ambos">Ambos</option>
+            </select>
+            <button type="button" class="btn btn-light" id="waitlist-submit-btn">Sumarme a la lista</button>
+            <p class="waitlist-note">Vamos a contactarte cuando abramos el acceso anticipado.</p>
+            <p class="waitlist-error" id="waitlist-error"></p>
+            <p class="waitlist-debug" id="waitlist-debug"></p>
+          </form>
+          <div class="success-box" id="success-box">
+            <strong>¡Listo!</strong>
+            Ya quedaste anotado. Te contactamos apenas abramos el acceso.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="logo"><span class="logo-badge">Cell</span><span class="logo-text">Desk</span></div>
+    <p>Software para negocios de compra, venta y reparación de celulares.</p>
+  </div>
+</footer>
+
+<script>
+  // Ciclo de estados en el tag principal, para transmitir "control en tiempo real"
+  const states = [
+    {label:'Reservado', color:'var(--amber)', bg:'#FBF0E1'},
+    {label:'Disponible', color:'var(--green)', bg:'#E9F8EF'},
+    {label:'Vendido', color:'var(--slate)', bg:'#EAF2FB'},
+  ];
+  let idx = 0;
+  const statusEl = document.getElementById('live-status');
+  setInterval(() => {
+    idx = (idx + 1) % states.length;
+    const s = states[idx];
+    statusEl.style.color = s.color;
+    statusEl.style.background = s.bg;
+    statusEl.textContent = s.label;
+    statusEl.classList.remove('pulse');
+    void statusEl.offsetWidth; // reinicia la animación aunque se repita la clase
+    statusEl.classList.add('pulse');
+  }, 2800);
+
+  // Aparición progresiva de tarjetas, pasos y el bloque de acceso anticipado al hacer scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in-view'), i * 70);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => observer.observe(el));
+
+  // Contador animado para costo y precio de la etiqueta principal
+  function animateValue(el, end, prefix, duration){
+    const start = 0;
+    const startTime = performance.now();
+    function tick(now){
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(start + (end - start) * eased);
+      el.textContent = prefix + current;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const priceEls = document.querySelectorAll('.tag-front .value.mono');
+  if (priceEls.length === 2) {
+    setTimeout(() => animateValue(priceEls[0], 650, '$', 900), 500);
+    setTimeout(() => animateValue(priceEls[1], 890, '$', 900), 650);
+  }
+
+  // Captura simple del email del hero -> redirige el foco al form de la waitlist
+  document.getElementById('hero-submit-btn').addEventListener('click', function(e){
+    const email = document.getElementById('hero-email').value;
+    document.getElementById('wl-contact').value = email;
+    document.getElementById('acceso').scrollIntoView({behavior:'smooth', block:'center'});
+    document.getElementById('wl-name').focus();
+  });
+
+  // Waitlist: inserta el registro directo en tu tabla de Supabase
+  // 1) Creá la tabla "waitlist" (ver SQL provisto) y activá RLS con policy de insert público
+  // 2) Reemplazá estos dos valores con los de tu proyecto (Settings > API en Supabase)
+  const SUPABASE_URL = 'https://rwsfzzgatgyxamntcksn.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c2Z6emdhdGd5eGFtbnRja3NuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxODg0NjUsImV4cCI6MjEwMDc2NDQ2NX0.W2ObC5y4EwaKb1MGEJZnU_dYpuy0D-5dCqa1Nwmi_Pc';
+
+  document.getElementById('waitlist-submit-btn').addEventListener('click', async function(e){
+    const debugEl = document.getElementById('waitlist-debug');
+    debugEl.textContent = 'Botón presionado, armando los datos...';
+
+    // Validación manual, ya que no dependemos del submit nativo del form
+    const nameVal = document.getElementById('wl-name').value.trim();
+    const businessVal = document.getElementById('wl-business').value.trim();
+    const contactVal = document.getElementById('wl-contact').value.trim();
+    const typeVal = document.getElementById('wl-type').value;
+    if (!nameVal || !businessVal || !contactVal || !typeVal) {
+      debugEl.textContent = 'Faltan campos por completar.';
+      return;
+    }
+    const entry = {name: nameVal, business: businessVal, contact: contactVal, type: typeVal};
+
+    const submitBtn = document.getElementById('waitlist-submit-btn');
+    const originalText = submitBtn.textContent;
+    const errorBox = document.getElementById('waitlist-error');
+    errorBox.style.display = 'none';
+    errorBox.textContent = '';
+
+    try {
+      submitBtn.textContent = 'Enviando...';
+      submitBtn.disabled = true;
+      debugEl.textContent = 'Enviando a Supabase...';
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(entry)
+      });
+      debugEl.textContent = 'Respuesta recibida: HTTP ' + res.status;
+      if (!res.ok) {
+        const bodyText = await res.text();
+        throw new Error(`HTTP ${res.status} — ${bodyText || res.statusText}`);
+      }
+      debugEl.textContent = '¡Insertado con éxito en Supabase!';
+      document.getElementById('waitlist-form').style.display = 'none';
+      document.getElementById('success-box').style.display = 'block';
+    } catch (err) {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+      debugEl.textContent = 'Falló antes de recibir respuesta: ' + err.message;
+      errorBox.textContent = 'Error: ' + err.message;
+      errorBox.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>
