@@ -100,6 +100,7 @@
   .hero p.sub{
     margin-top:20px; font-size:17px; color:var(--ink-soft); max-width:480px; line-height:1.6;
   }
+  .hero p.sub strong{color:var(--blue-deep); font-weight:600;}
   .hero-form{
     margin-top:32px; display:flex; gap:10px; max-width:440px; flex-wrap:wrap;
   }
@@ -123,7 +124,7 @@
   }
 
   /* TAG STACK — signature element */
-  .tag-stack{position:relative; height:420px;}
+  .tag-stack{position:relative; height:420px; transition:transform .3s ease-out;}
   .tag{
     position:absolute; width:280px; background:var(--white);
     border:1.5px solid var(--line); border-radius:14px;
@@ -192,12 +193,22 @@
   }
 
   /* STEPS */
-  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:8px;}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:8px; position:relative;}
+  .steps::before{
+    content:''; position:absolute; top:14px; left:15px; right:15px; height:2px;
+    background:var(--line); z-index:0;
+  }
+  .steps::after{
+    content:''; position:absolute; top:14px; left:15px; width:0; height:2px;
+    background:var(--blue); z-index:0; transition:width 1.4s cubic-bezier(.2,.8,.2,1);
+  }
+  .steps.in-view::after{ width:calc(100% - 30px); }
   .step{position:relative; padding-left:0;}
   .step-num{
-    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--blue);
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blue);
     border:1.5px solid var(--line); width:30px; height:30px; border-radius:8px;
     display:flex; align-items:center; justify-content:center; margin-bottom:16px;
+    background:var(--bg-soft); position:relative; z-index:1;
   }
   .step h3{font-size:16px; font-weight:600; margin-bottom:8px;}
   .step p{font-size:14px; color:var(--ink-soft); line-height:1.55;}
@@ -334,8 +345,8 @@
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow hero-eyebrow-anim">Para negocios de compra, venta y reparación de celulares</div>
-      <h1>¿Sabés cuánta plata tenés <span>parada en stock</span> ahora mismo?</h1>
-      <p class="sub">La mayoría de los locales no lo sabe con exactitud — lo calculan a ojo entre el Excel, el cuaderno y lo que se acuerdan. CellDesk te lo muestra en un vistazo, y controla que ningún equipo se venda dos veces por WhatsApp sin que te enteres.</p>
+      <h1>Centralizá el stock, las ventas y las reparaciones de tu local de celulares <span>en un solo lugar.</span></h1>
+      <p class="sub">CellDesk reemplaza el Excel, el cuaderno y las conversaciones sueltas de WhatsApp por <strong>un panel único</strong>: stock con margen automático, reservas, reparaciones y clientes — <strong>todo conectado</strong>.</p>
       <form class="hero-form" id="hero-form">
         <input type="email" id="hero-email" placeholder="tu@email.com" required>
         <button type="button" class="btn btn-primary" id="hero-submit-btn">Quiero probarlo</button>
@@ -528,6 +539,35 @@
     });
   }, {threshold:0.15});
   revealEls.forEach(el => observer.observe(el));
+
+  // Línea de progreso animada entre los 3 pasos
+  const stepsEl = document.querySelector('.steps');
+  const stepsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        stepsObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.4});
+  if (stepsEl) stepsObserver.observe(stepsEl);
+
+  // Paralaje sutil del conjunto de etiquetas según la posición del mouse
+  // (se aplica al contenedor, no a las etiquetas individuales, para no
+  // pelear con su animación de flotado en loop)
+  const tagStack = document.querySelector('.tag-stack');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (tagStack && !prefersReducedMotion) {
+    tagStack.addEventListener('mousemove', (e) => {
+      const rect = tagStack.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      tagStack.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+    });
+    tagStack.addEventListener('mouseleave', () => {
+      tagStack.style.transform = '';
+    });
+  }
 
   // Contador animado para costo y precio de la etiqueta principal
   function animateValue(el, end, prefix, duration){
