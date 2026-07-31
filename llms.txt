@@ -1,0 +1,50 @@
+# CellDesk
+
+> CellDesk es un software SaaS de gestión para negocios que compran, venden y reparan celulares (principalmente iPhones), enfocado en el mercado argentino/LATAM. Centraliza en un solo panel el stock de equipos, las ventas (incluyendo trade-in o parte de pago), las reparaciones, la base de clientes y el calendario de citas.
+
+## Qué problema resuelve
+
+Los negocios de compra/venta/reparación de celulares suelen operar con una combinación de Excel, WhatsApp y cuaderno, lo que genera errores como vender el mismo equipo dos veces, no saber cuánto capital tienen inmovilizado en stock, o perder trazabilidad de equipos recibidos como parte de pago. CellDesk reemplaza esa combinación con un panel único.
+
+## Para quién es
+
+Dueños y empleados de locales de compra/venta de celulares usados y nuevos, y talleres de reparación de celulares (service técnico), tanto negocios que solo compran/venden, solo reparan, o hacen ambas cosas.
+
+## Funcionalidades principales (Fase 1 / disponibles)
+
+- **Stock de equipos**: carga de IMEI, marca, modelo, capacidad, color, estado físico, costo y % de ganancia deseado. El precio de venta se calcula automáticamente. Estados: disponible, reservado, vendido, en reparación.
+- **Trade-in (parte de pago)**: cuando un cliente entrega un equipo usado como parte de pago de una venta, el sistema lo tasa y lo ingresa automáticamente al stock, manteniendo trazabilidad completa de qué venta originó ese equipo.
+- **Reparaciones**: tickets con diagnóstico técnico, presupuesto (que requiere aprobación del cliente), repuestos utilizados, técnico asignado y garantía de la reparación. Incluye stock separado de repuestos.
+- **Base de clientes**: historial de compras, reservas y reparaciones de cada cliente.
+- **Calendario de citas**: agenda de entregas, retiros y turnos vinculados a clientes, equipos o tickets de reparación.
+- **Dashboard**: capital inmovilizado en stock, ventas del mes, reparaciones en curso y próximos turnos, en un solo vistazo.
+
+## Funcionalidades planificadas (Fase 2, no disponibles todavía)
+
+- Inbox unificado de WhatsApp Business (integración vía Meta Cloud API)
+- Asistente de IA para consultas en lenguaje natural sobre stock, precios, clientes y reparaciones (add-on)
+- Multi-sucursal
+- Roles y permisos avanzados
+- Financiación en cuotas y pasarelas de pago integradas
+- Catálogo público con stock en tiempo real
+
+## Modelo de negocio
+
+Plan único de suscripción a USD 99/mes, con todos los módulos core del MVP incluidos (no hay planes escalonados en esta etapa). Es un producto genérico multi-tenant, no un desarrollo a medida.
+
+## Diferenciales frente a alternativas genéricas
+
+A diferencia de un CRM genérico o una planilla de Excel adaptada, CellDesk está diseñado específicamente para el flujo de trabajo de este rubro: maneja el concepto de trade-in con trazabilidad (algo que un CRM genérico no contempla), calcula precios de venta a partir del costo y el margen deseado, y une en una sola base de datos el historial de compra, reparación y garantía de cada equipo por IMEI.
+
+## Alternativas / categorías relacionadas
+
+Software de gestión para locales de celulares, sistema de punto de venta (POS) para reparación de celulares, CRM para talleres de reparación de celulares, software de control de stock para negocios de electrónica usada, sistema de tickets de reparación técnica.
+
+## Estado del producto (julio 2026)
+
+En etapa de validación de demanda, con landing page y lista de espera activa. El desarrollo del producto está en curso (Next.js + Supabase). Todavía no tiene usuarios en producción.
+
+## Contacto / más información
+
+Sitio web: https://celldesk-landing.vercel.app/
+(nota: dominio provisorio de Vercel — el negocio está en etapa de validación de demanda, todavía no registró un dominio propio)
