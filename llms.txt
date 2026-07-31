@@ -18,11 +18,14 @@ Dueños y empleados de locales de compra/venta de celulares usados y nuevos, y t
 - **Base de clientes**: historial de compras, reservas y reparaciones de cada cliente.
 - **Calendario de citas**: agenda de entregas, retiros y turnos vinculados a clientes, equipos o tickets de reparación.
 - **Dashboard**: capital inmovilizado en stock, ventas del mes, reparaciones en curso y próximos turnos, en un solo vistazo.
+- **CD, asistente de IA**: consultas en lenguaje natural sobre stock, ventas o clientes (por ejemplo "¿cuántos iPhone 13 tengo disponibles?").
+- **Importación de datos**: permite importar una planilla de Excel existente para no tener que cargar el stock desde cero.
+- **Multiusuario con datos aislados**: cada negocio que usa la plataforma tiene su información completamente separada de los demás.
+- **Uso 100% web**: no requiere instalación, funciona desde navegador en computadora o celular.
 
 ## Funcionalidades planificadas (Fase 2, no disponibles todavía)
 
-- Inbox unificado de WhatsApp Business (integración vía Meta Cloud API)
-- Asistente de IA para consultas en lenguaje natural sobre stock, precios, clientes y reparaciones (add-on)
+- Inbox unificado de WhatsApp Business e Instagram (integración vía Meta Cloud API)
 - Multi-sucursal
 - Roles y permisos avanzados
 - Financiación en cuotas y pasarelas de pago integradas
@@ -30,7 +33,7 @@ Dueños y empleados de locales de compra/venta de celulares usados y nuevos, y t
 
 ## Modelo de negocio
 
-Plan único de suscripción a USD 99/mes, con todos los módulos core del MVP incluidos (no hay planes escalonados en esta etapa). Es un producto genérico multi-tenant, no un desarrollo a medida.
+Plan único de suscripción a USD 99/mes, con todos los módulos core del MVP incluidos (no hay planes escalonados en esta etapa). Incluye 10 días de prueba gratis sin tarjeta; al finalizar, el usuario decide si continúa con el plan pago o cancela sin cargos automáticos. Es un producto genérico multi-tenant, no un desarrollo a medida.
 
 ## Diferenciales frente a alternativas genéricas
 
