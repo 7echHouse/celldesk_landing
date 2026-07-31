@@ -5,76 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CellDesk — Todo tu negocio de celulares, en un solo lugar</title>
 <link rel="icon" type="image/svg+xml" href="celldesk_favicon.svg">
-
-<meta name="description" content="CellDesk es el software para negocios de compra, venta y reparación de celulares. Controlá stock, ventas, trade-in, reparaciones y clientes en un solo panel. Reemplazá el Excel, el WhatsApp y el cuaderno.">
-<meta name="keywords" content="software para local de celulares, gestión de reparaciones de celulares, sistema para compra y venta de celulares, control de stock celulares, trade-in celulares, software para service técnico celulares">
-<meta http-equiv="content-language" content="es-AR">
-<meta name="robots" content="index, follow">
-<meta name="author" content="CellDesk">
-<link rel="canonical" href="https://celldesk-landing.vercel.app/">
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://celldesk-landing.vercel.app/">
-<meta property="og:title" content="CellDesk — Todo tu negocio de celulares, en un solo lugar">
-<meta property="og:description" content="Stock, ventas, trade-in, reparaciones y clientes en un solo panel. El reemplazo del Excel + WhatsApp + cuaderno para negocios de celulares.">
-<meta property="og:image" content="https://celldesk-landing.vercel.app/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="es_AR">
-<meta property="og:site_name" content="CellDesk">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CellDesk — Todo tu negocio de celulares, en un solo lugar">
-<meta name="twitter:description" content="Stock, ventas, trade-in, reparaciones y clientes en un solo panel para negocios de compra, venta y reparación de celulares.">
-<meta name="twitter:image" content="https://celldesk-landing.vercel.app/og-image.png">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "CellDesk",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Web",
-  "description": "CellDesk es un software SaaS de gestión para negocios que compran, venden y reparan celulares. Centraliza stock de equipos, ventas con trade-in, reparaciones, base de clientes y calendario de citas en un solo panel.",
-  "url": "https://celldesk-landing.vercel.app/",
-  "offers": {
-    "@type": "Offer",
-    "price": "99",
-    "priceCurrency": "USD",
-    "description": "Plan único mensual con todos los módulos core incluidos: stock, ventas, trade-in, reparaciones, clientes y calendario."
-  },
-  "areaServed": { "@type": "Country", "name": "Argentina" },
-  "inLanguage": "es-AR"
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "¿Qué es CellDesk?",
-      "acceptedAnswer": { "@type": "Answer", "text": "CellDesk es un software de gestión para negocios que compran, venden y reparan celulares. Centraliza en un solo panel el stock de equipos, las ventas (incluido el trade-in), las reparaciones, la base de clientes y el calendario de citas." }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Cuánto cuesta CellDesk?",
-      "acceptedAnswer": { "@type": "Answer", "text": "CellDesk tiene un plan único de USD 99 por mes, con todos los módulos incluidos: stock, ventas, trade-in, reparaciones, clientes y calendario." }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Para qué tipo de negocio sirve CellDesk?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Para locales de compra y venta de celulares usados y nuevos, y para talleres o service técnico de reparación de celulares. Sirve tanto para negocios que solo compran/venden, solo reparan, o hacen ambas cosas." }
-    },
-    {
-      "@type": "Question",
-      "name": "¿En qué se diferencia CellDesk de usar Excel y WhatsApp?",
-      "acceptedAnswer": { "@type": "Answer", "text": "CellDesk evita que un mismo equipo se ofrezca o venda dos veces, calcula el precio de venta automáticamente a partir del costo y el margen deseado, y mantiene trazabilidad completa de los equipos recibidos como parte de pago (trade-in), algo que una planilla no controla." }
-    }
-  ]
-}
-</script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
@@ -170,6 +100,7 @@
   .hero p.sub{
     margin-top:20px; font-size:17px; color:var(--ink-soft); max-width:480px; line-height:1.6;
   }
+  .hero p.sub strong{color:var(--blue-deep); font-weight:600;}
   .hero-form{
     margin-top:32px; display:flex; gap:10px; max-width:440px; flex-wrap:wrap;
   }
@@ -180,6 +111,7 @@
   }
   .hero-form input:focus{outline:none; border-color:var(--blue);}
   .form-note{margin-top:10px; font-size:12.5px; color:var(--ink-soft);}
+  .form-note strong{color:var(--blue-deep); font-weight:600;}
   .scroll-cue{
     display:inline-flex; align-items:center; gap:6px; margin-top:36px;
     font-size:13px; font-weight:600; color:var(--blue-deep); text-decoration:none;
@@ -193,7 +125,7 @@
   }
 
   /* TAG STACK — signature element */
-  .tag-stack{position:relative; height:420px;}
+  .tag-stack{position:relative; height:420px; transition:transform .3s ease-out;}
   .tag{
     position:absolute; width:280px; background:var(--white);
     border:1.5px solid var(--line); border-radius:14px;
@@ -241,6 +173,7 @@
     display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
     background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden;
   }
+  .feature:last-child:nth-child(3n+1){ grid-column: 1 / -1; }
   .feature{background:var(--white); padding:30px 26px;}
   .feature.soon{background:var(--bg-soft);}
   .feature-icon{
@@ -261,13 +194,80 @@
     padding:2px 7px; border-radius:100px;
   }
 
+  /* COMPARACIÓN SIN/CON */
+  .compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:8px;}
+  .compare-card{border-radius:14px; padding:32px; border:1.5px solid var(--line); background:var(--white);}
+  .compare-card.good{border-color:var(--blue); border-width:2px; position:relative;}
+  .compare-card.good::before{
+    content:''; position:absolute; top:-2px; left:14px; right:14px; height:4px;
+    background:var(--blue); border-radius:0 0 4px 4px;
+  }
+  .compare-label{
+    font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    margin-bottom:18px; display:block;
+  }
+  .compare-card.bad .compare-label{color:var(--ink-soft);}
+  .compare-card.good .compare-label{color:var(--blue);}
+  .compare-list{list-style:none;}
+  .compare-list li{display:flex; align-items:flex-start; gap:10px; font-size:14.5px; margin-bottom:14px; color:var(--ink); line-height:1.4;}
+  .compare-list li svg{flex-shrink:0; margin-top:1px;}
+  .compare-card.bad li svg{stroke:#C94F4F;}
+  .compare-card.good li svg{stroke:var(--green);}
+
+  /* SECCIÓN OSCURA DE RESULTADOS */
+  .section-dark{background:var(--blue-deep);}
+  .section-dark .section-head{max-width:640px; margin-left:auto; margin-right:auto; text-align:center;}
+  .section-dark .section-head h2{color:var(--white);}
+  .section-dark .eyebrow{background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.18); color:#BBD6EE;}
+  .outcomes-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:48px;}
+  .outcome-card{background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:28px;}
+  .outcome-icon{width:42px; height:42px; border-radius:10px; background:rgba(46,143,224,0.22); display:flex; align-items:center; justify-content:center; margin-bottom:18px;}
+  .outcome-icon svg{width:20px; height:20px; stroke:#6FB4F0; fill:none; stroke-width:1.8;}
+  .outcome-card h3{font-size:16.5px; font-weight:600; color:var(--white); margin-bottom:8px;}
+  .outcome-card p{font-size:13.5px; color:#A9C6E0; line-height:1.55;}
+  .chips-row{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:40px;}
+  .chip{
+    display:inline-flex; align-items:center; padding:9px 16px; border-radius:100px;
+    border:1px solid rgba(255,255,255,0.16); font-size:13px; color:#D9E9F7;
+  }
+
+  /* FAQ */
+  .faq-head{text-align:center; margin-left:auto; margin-right:auto;}
+  .faq-head .eyebrow{margin-left:auto; margin-right:auto;}
+  .faq-list{max-width:720px; margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-question{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:22px 4px; cursor:pointer; font-size:15.5px; font-weight:600; color:var(--ink);
+    background:none; border:none; width:100%; text-align:left; font-family:'IBM Plex Sans',sans-serif;
+  }
+  .faq-question:hover{color:var(--blue-deep);}
+  .faq-icon{width:18px; height:18px; flex-shrink:0; position:relative;}
+  .faq-icon::before, .faq-icon::after{content:''; position:absolute; background:var(--ink-soft); transition:transform .25s ease;}
+  .faq-icon::before{width:100%; height:2px; top:8px; left:0;}
+  .faq-icon::after{width:2px; height:100%; left:8px; top:0;}
+  .faq-item.open .faq-icon::after{transform:rotate(90deg); opacity:0;}
+  .faq-item.open .faq-question{color:var(--blue-deep);}
+  .faq-answer{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-answer p{padding:0 4px 22px; font-size:14px; color:var(--ink-soft); line-height:1.6; max-width:620px;}
+
   /* STEPS */
-  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:8px;}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:8px; position:relative;}
+  .steps::before{
+    content:''; position:absolute; top:14px; left:15px; right:15px; height:2px;
+    background:var(--line); z-index:0;
+  }
+  .steps::after{
+    content:''; position:absolute; top:14px; left:15px; width:0; height:2px;
+    background:var(--blue); z-index:0; transition:width 1.4s cubic-bezier(.2,.8,.2,1);
+  }
+  .steps.in-view::after{ width:calc(100% - 30px); }
   .step{position:relative; padding-left:0;}
   .step-num{
-    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--blue);
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blue);
     border:1.5px solid var(--line); width:30px; height:30px; border-radius:8px;
     display:flex; align-items:center; justify-content:center; margin-bottom:16px;
+    background:var(--bg-soft); position:relative; z-index:1;
   }
   .step h3{font-size:16px; font-weight:600; margin-bottom:8px;}
   .step p{font-size:14px; color:var(--ink-soft); line-height:1.55;}
@@ -382,6 +382,9 @@
     .waitlist-grid{grid-template-columns:1fr;}
     .waitlist{padding:36px 24px;}
     .nav-links{display:none;}
+    .compare-grid{grid-template-columns:1fr;}
+    .outcomes-grid{grid-template-columns:1fr;}
+    .steps::before, .steps::after{display:none;}
   }
 </style>
 </head>
@@ -393,7 +396,7 @@
     <div class="nav-links">
       <a href="#funciones">Funciones</a>
       <a href="#como-funciona">Cómo funciona</a>
-      <a href="#preguntas-frecuentes">Preguntas frecuentes</a>
+      <a href="#preguntas">Preguntas</a>
       <a href="#acceso">Acceso anticipado</a>
     </div>
     <a href="#acceso" class="btn btn-primary">Sumarme</a>
@@ -405,13 +408,13 @@
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow hero-eyebrow-anim">Para negocios de compra, venta y reparación de celulares</div>
-      <h1>¿Sabés cuánta plata tenés <span>parada en stock</span> ahora mismo?</h1>
-      <p class="sub">La mayoría de los locales no lo sabe con exactitud — lo calculan a ojo entre el Excel, el cuaderno y lo que se acuerdan. CellDesk te lo muestra en un vistazo, y controla que ningún equipo se venda dos veces por WhatsApp sin que te enteres.</p>
+      <h1>Centralizá el stock, las ventas y las reparaciones de tu local de celulares <span>en un solo lugar.</span></h1>
+      <p class="sub">CellDesk reemplaza el Excel, el cuaderno y las conversaciones sueltas de WhatsApp por <strong>un panel único</strong>: stock con margen automático, reservas, reparaciones y clientes — <strong>todo conectado</strong>.</p>
       <form class="hero-form" id="hero-form">
         <input type="email" id="hero-email" placeholder="tu@email.com" required>
         <button type="button" class="btn btn-primary" id="hero-submit-btn">Quiero probarlo</button>
       </form>
-      <p class="form-note">Sin spam. Te avisamos apenas abramos el acceso anticipado.</p>
+      <p class="form-note">Sin spam. Al abrir el acceso, vas a tener <strong>10 días de prueba gratis</strong>, sin tarjeta.</p>
       <a href="#funciones" class="scroll-cue">
         <span>Mirá cómo funciona</span>
         <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 4v14M6 12l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -491,12 +494,83 @@
         <p>Agendá entregas, retiros y citas asociadas a un cliente o a una reparación.</p>
         <p class="feature-example">Ej: agendás el retiro de una reparación y queda vinculado directo al ticket y al cliente.</p>
       </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M6 12v1a6 6 0 0 0 12 0v-1M12 19v3M8.5 22h7"/></svg></div>
+        <h3>CD, tu asistente de IA</h3>
+        <p>Preguntale a CD por tu stock, tus ventas o tus clientes en lenguaje natural, y te responde al toque.</p>
+        <p class="feature-example">Ej: "¿cuántos iPhone 13 tengo disponibles?" y CD te contesta sin que tengas que buscar en ningún lado.</p>
+      </div>
       <div class="feature soon reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 21l2-5.5a8.38 8.38 0 0 1-1-4A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg></div>
-        <h3>Bandeja de WhatsApp <span class="pill-soon">Próximamente</span></h3>
-        <p>Todas tus conversaciones asociadas al cliente correcto, sin cambiar de app.</p>
-        <p class="feature-example">Ej: te escriben por un equipo reservado y ya ves su historial completo, sin buscar el chat viejo.</p>
+        <h3>WhatsApp e Instagram <span class="pill-soon">Próximamente</span></h3>
+        <p>Todas tus conversaciones de WhatsApp e Instagram asociadas al cliente correcto, sin cambiar de app.</p>
+        <p class="feature-example">Ej: te escriben por Instagram por un equipo reservado y ya ves su historial completo, sin buscar el chat viejo.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="comparacion">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">El cambio real</div>
+      <h2>Tu local ya creció. Tu forma de manejarlo, no.</h2>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-card bad reveal">
+        <span class="compare-label">Sin CellDesk</span>
+        <ul class="compare-list">
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Excel que nadie actualiza a tiempo</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Precios repartidos en distintos chats de WhatsApp</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" fill="none" stroke-linecap="round"/></svg> No sabés cuánto ganaste realmente este mes</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Equipos vendidos que siguen apareciendo en las listas</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Todo depende de que una sola persona se acuerde</li>
+        </ul>
+      </div>
+      <div class="compare-card good reveal">
+        <span class="compare-label">Con CellDesk</span>
+        <ul class="compare-list">
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> Stock actualizado por todo el equipo, en tiempo real</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> Margen y ganancia calculados en cada venta</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> Reservas y ventas conectadas directo al inventario</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> Historial de reparaciones y clientes, siempre a mano</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> Todo disponible desde el celu y la compu</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Por qué importa</div>
+      <h2>No es más software. Es orden real en tu local.</h2>
+    </div>
+    <div class="outcomes-grid">
+      <div class="outcome-card reveal">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div>
+        <h3>Sabés cuánto ganás de verdad</h3>
+        <p>Costo, margen y ganancia calculados en cada venta — no estimados a ojo a fin de mes.</p>
+      </div>
+      <div class="outcome-card reveal">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+        <h3>Nunca más vendés algo que no tenés</h3>
+        <p>Stock, reservas y ventas sincronizados en el momento, sin depender de acordarte.</p>
+      </div>
+      <div class="outcome-card reveal">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 21l2-5.5a8.38 8.38 0 0 1-1-4A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg></div>
+        <h3>Respondés clientes en segundos</h3>
+        <p>Precio y disponibilidad al toque, sin ir a buscar en otro chat o planilla.</p>
+      </div>
+    </div>
+    <div class="chips-row">
+      <span class="chip">Clientes</span>
+      <span class="chip">Reparaciones</span>
+      <span class="chip">Reservas con seña</span>
+      <span class="chip">Trade-in trazado</span>
+      <span class="chip">Multiusuario</span>
+      <span class="chip">Historial de garantías</span>
     </div>
   </div>
 </section>
@@ -527,40 +601,13 @@
   </div>
 </section>
 
-<section class="section" id="preguntas-frecuentes">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Preguntas frecuentes</div>
-      <h2>Lo que suelen preguntarnos.</h2>
-    </div>
-    <div class="steps">
-      <div class="step reveal">
-        <h3>¿Qué es CellDesk?</h3>
-        <p>Es un software de gestión para negocios que compran, venden y reparan celulares. Centraliza en un solo panel el stock de equipos, las ventas (incluido el trade-in), las reparaciones, la base de clientes y el calendario de citas.</p>
-      </div>
-      <div class="step reveal">
-        <h3>¿Cuánto cuesta?</h3>
-        <p>Un plan único de USD 99 por mes, con todos los módulos incluidos: stock, ventas, trade-in, reparaciones, clientes y calendario.</p>
-      </div>
-      <div class="step reveal">
-        <h3>¿Para qué negocios sirve?</h3>
-        <p>Para locales de compra y venta de celulares y para talleres de reparación — solés compras/venta, solo reparación, o ambas cosas.</p>
-      </div>
-      <div class="step reveal">
-        <h3>¿En qué se diferencia de Excel y WhatsApp?</h3>
-        <p>Evita que un mismo equipo se venda dos veces, calcula el precio de venta solo a partir del costo y el margen, y mantiene trazabilidad completa de los equipos recibidos como parte de pago.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="section" id="acceso">
   <div class="wrap">
     <div class="waitlist reveal">
       <div class="waitlist-grid">
         <div>
           <h2>Estamos armando la primera versión.</h2>
-          <p>Sumate a la lista de negocios que van a probar CellDesk antes que nadie. Sin costo, sin compromiso.</p>
+          <p>Sumate a la lista de negocios que van a probar CellDesk antes que nadie, con <strong style="color:#FFFFFF;">10 días de prueba gratis</strong> apenas abramos el acceso. Sin costo, sin compromiso.</p>
         </div>
         <div>
           <form class="waitlist-form" id="waitlist-form">
@@ -583,6 +630,41 @@
             Ya quedaste anotado. Te contactamos apenas abramos el acceso.
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="preguntas">
+  <div class="wrap">
+    <div class="section-head faq-head">
+      <div class="eyebrow">Dudas frecuentes</div>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question"><span>¿Necesito instalar algo?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>No, CellDesk funciona 100% desde el navegador — no hay nada que descargar ni instalar en tu compu o celular.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question"><span>¿Puedo usarlo desde el celular?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Sí, el panel se adapta a cualquier pantalla. Podés cargar stock, confirmar reservas o revisar el dashboard desde el celular sin problema.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question"><span>¿Qué pasa después de los 10 días de prueba?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Vos decidís si seguís con el plan pago (USD 99/mes) o cancelás. No se te cobra nada automáticamente sin que lo confirmes.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question"><span>¿Puedo importar mi Excel actual?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Sí, vas a poder importar tu planilla de stock actual para no tener que cargar todo de cero al empezar.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question"><span>¿Mis datos están separados de otros negocios?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Sí, completamente. Cada negocio tiene su información aislada — nadie más puede ver tu stock, tus precios ni tus clientes.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question"><span>¿Puedo cancelar cuando quiera?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Sí, sin permanencia ni penalidad. Cancelás cuando quieras desde tu cuenta.</p></div>
       </div>
     </div>
   </div>
@@ -626,6 +708,35 @@
     });
   }, {threshold:0.15});
   revealEls.forEach(el => observer.observe(el));
+
+  // Línea de progreso animada entre los 3 pasos
+  const stepsEl = document.querySelector('.steps');
+  const stepsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        stepsObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.4});
+  if (stepsEl) stepsObserver.observe(stepsEl);
+
+  // Paralaje sutil del conjunto de etiquetas según la posición del mouse
+  // (se aplica al contenedor, no a las etiquetas individuales, para no
+  // pelear con su animación de flotado en loop)
+  const tagStack = document.querySelector('.tag-stack');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (tagStack && !prefersReducedMotion) {
+    tagStack.addEventListener('mousemove', (e) => {
+      const rect = tagStack.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      tagStack.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+    });
+    tagStack.addEventListener('mouseleave', () => {
+      tagStack.style.transform = '';
+    });
+  }
 
   // Contador animado para costo y precio de la etiqueta principal
   function animateValue(el, end, prefix, duration){
@@ -710,6 +821,28 @@
       errorBox.textContent = 'Error: ' + err.message;
       errorBox.style.display = 'block';
     }
+  });
+
+  // Acordeón de preguntas frecuentes
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    question.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-answer').style.maxHeight = null;
+        }
+      });
+      if (isOpen) {
+        item.classList.remove('open');
+        answer.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
   });
 </script>
 
